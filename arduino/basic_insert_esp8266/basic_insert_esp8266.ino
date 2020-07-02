@@ -32,11 +32,11 @@
 #include <MySQL_Cursor.h>
 
 IPAddress server_addr(192,168,15,6);  // IP of the MySQL *server* here
-char user[] = "root";              // MySQL user login username
-char password[] = "Mucc8998";        // MySQL user login password
+char user[] = "arduino_user";              // MySQL user login username
+char password[] = "secret";        // MySQL user login password
 
 // Sample query
-char INSERT_SQL[] = "INSERT INTO test_arduino.hello_arduino (message) VALUES ('Hello, Arduino!')";
+char INSERT_SQL[] = "SELECT * FROM organizador_item;";
 
 // WiFi card example
 char ssid[] = "VIVOFIBRA-6248";         // your SSID
