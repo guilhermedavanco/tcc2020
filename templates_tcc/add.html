@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <style type="text/css">
+    body {
+      font-family: "Lato", sans-serif;
+    }
+
+.sidenav {
+  height: 100%;
+  width: 160px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+
+.sidenav a {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+}
+
+.sidenav a:hover {
+  color: #f1f1f1;
+}
+
+.main {
+  margin-left: 160px; /* Same as the width of the sidenav */
+  font-size: 28px; /* Increased text to enable scrolling */
+  padding: 0px 10px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+
+
+div.gallery {
+  border: 1px solid #ccc;
+}
+
+div.gallery:hover {
+  border: 1px solid #777;
+}
+
+div.gallery img {
+  width: 100%;
+  height: auto;
+}
+
+div.desc {
+  padding: 15px;
+  text-align: center;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.responsive {
+  padding: 0 6px;
+  float: left;
+  width: 24.99999%;
+}
+
+@media only screen and (max-width: 700px) {
+  .responsive {
+    width: 49.99999%;
+    margin: 6px 0;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .responsive {
+    width: 100%;
+  }
+}
+
+.clearfix:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.row2{
+margin-left: 166px;
+
+}
+.row{
+margin-left: 166px;
+height: 50px;
+margin-right: 0px;
+
+}
+
+
+
+</style>
+
+</head>
+<body>
+
+<div class="sidenav">
+  <a href="Selecao.html">Seleçao</a>
+  <a href="Superior.html">Superior</a>
+  <a href="Inferior.html">Inferior</a>
+  <a href="add.html">Adicionar</a>
+  <a href="#add">Favoritas</a>
+  <a href="#contact">Sugestões</a>
+</div>
+<div class="container-fluid">
+  <br>
+  <div class="row">
+    <div class="col-sm-2">
+    </div>
+    <div class="col-sm-8">
+    <div class="form">
+    <form method="GET">
+      <div class="form-group">
+        <label for="Descrição">Descrição:</label>
+        <input type="text" name="Descrição" placeholder="Insira uma descrição" class="form-control">
+        <br>
+        <label for="RFID">RFID:</label>
+        <input type="text" name="RFID" placeholder="Insira a Etiqueta RFID" class="form-control">
+        <br>
+        <label for="foto">Foto:</label>
+        <input type="file" name="foto" placeholder="Foto" class="form-control">
+        <br>
+        <select class="form-control">
+          <option>COR</option>
+          <option>Preta</option>
+          <option>Braca</option>
+          <option>Cinza</option>
+        </select>
+        <br>
+        <select class="form-control">
+          <option>TAMANHO</option>
+          <option>P</option>
+          <option>M</option>
+        </select>
+        <br>
+        <select class="form-control">
+          <option>TIPO</option>
+          <option>Superior</option>
+          <option>Inferior</option>
+        </select>
+        <br>
+        <button class="btn btn-primary">Adicionar</button>
+      </div>
+    </form>
+    </div>
+    </div>
+    <div class="col-sm-2"></div>
+  </div>
+</div>
+
+
+
+
+</body>
+</html>
