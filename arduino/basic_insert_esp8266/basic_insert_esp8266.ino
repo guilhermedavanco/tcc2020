@@ -36,7 +36,7 @@ char user[] = "arduino_user";              // MySQL user login username
 char password[] = "secret";        // MySQL user login password
 
 // Sample query
-char INSERT_SQL[] = "SELECT * FROM organizador_item;";
+char INSERT_SQL[] = "SELECT * FROM db_tcc.organizador_item;";
 
 // WiFi card example
 char ssid[] = "VIVOFIBRA-6248";         // your SSID
