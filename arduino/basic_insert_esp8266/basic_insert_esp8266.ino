@@ -7,7 +7,7 @@
   Arduino using an Arduino-compatible Wifi shield. Note that "compatible"
   means it must conform to the Ethernet class library or be a derivative
   with the same classes and methods.
-  
+
   For more information and documentation, visit the wiki:
   https://github.com/ChuckBell/MySQL_Connector_Arduino/wiki.
 
@@ -31,7 +31,7 @@
 #include <MySQL_Connection.h>
 #include <MySQL_Cursor.h>
 
-IPAddress server_addr(192,168,15,6);  // IP of the MySQL *server* here
+IPAddress server_addr(192, 168, 15, 6); // IP of the MySQL *server* here
 char user[] = "arduino_user";              // MySQL user login username
 char password[] = "secret";        // MySQL user login password
 
@@ -69,15 +69,25 @@ void setup()
     Serial.println("OK.");
   else
     Serial.println("FAILED.");
-  
+
   // create MySQL cursor object
   cursor = new MySQL_Cursor(&conn);
 }
 
 void loop()
 {
-  if (conn.connected())
+  row_values *row = NULL;
+  if (conn.connected()) {
     cursor->execute(INSERT_SQL);
-
+    cursor.get_columns();
+    do {
+      row = cur.get_next_row();
+      if (row != NULL) {
+        for (int i = 0; i < 5; i++) {
+          Serial.println(row->values[i]);
+        }
+      }
+    } while (row != NULL);
+  }
   delay(5000);
 }
