@@ -31,6 +31,8 @@
 #include <MySQL_Connection.h>
 #include <MySQL_Cursor.h>
 
+#define NUM_COLUNAS 8
+
 IPAddress server_addr(192, 168, 15, 6); // IP of the MySQL *server* here
 char user[] = "arduino_user";              // MySQL user login username
 char password[] = "secret";        // MySQL user login password
@@ -83,7 +85,7 @@ void loop()
     do {
       row = cur.get_next_row();
       if (row != NULL) {
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < NUM_COLUNAS; i++) {
           Serial.println(row->values[i]);
         }
       }
