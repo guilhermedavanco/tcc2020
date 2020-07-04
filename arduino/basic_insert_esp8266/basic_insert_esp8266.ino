@@ -81,9 +81,9 @@ void loop()
   row_values *row = NULL;
   if (conn.connected()) {
     cursor->execute(INSERT_SQL);
-    cursor.get_columns();
+    cursor->get_columns();
     do {
-      row = cur.get_next_row();
+      row = cursor->get_next_row();
       if (row != NULL) {
         for (int i = 0; i < NUM_COLUNAS; i++) {
           Serial.println(row->values[i]);
