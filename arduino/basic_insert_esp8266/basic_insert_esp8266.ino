@@ -73,11 +73,12 @@ void setup()
     Serial.println("FAILED.");
 
   // create MySQL cursor object
-  cursor = new MySQL_Cursor(&conn);
+  
 }
 
 void loop()
 {
+  cursor = new MySQL_Cursor(&conn);
   row_values *row = NULL;
   if (conn.connected()) {
     cursor->execute(INSERT_SQL);
@@ -91,5 +92,6 @@ void loop()
       }
     } while (row != NULL);
   }
+  delete cursor;
   delay(5000);
 }
