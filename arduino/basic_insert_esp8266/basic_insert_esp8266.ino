@@ -67,11 +67,10 @@ void setup()
   Serial.println(WiFi.localIP());
 
   Serial.print("Connecting to SQL...  ");
-  if (conn.connect(server_addr, 3306, user, password))
-    Serial.println("OK.");
-  else
+  while (!conn.connect(server_addr, 3306, user, password)) {
     Serial.println("FAILED.");
-
+  }
+  Serial.println("CONECTADO");
 }
 
 void loop()
@@ -91,6 +90,13 @@ void loop()
         }
       }
     } while (row != NULL);
+  }
+  else {
+    Serial.println("TENTANDO RECONECTAR");
+    while (!conn.connect(server_addr, 3306, user, password)) {
+      Serial.println("FAILED.");
+    }
+    Serial.println("CONECTADO");
   }
   delete cursor;
   delay(5000);
