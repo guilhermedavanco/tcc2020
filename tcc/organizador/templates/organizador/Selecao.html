@@ -1,0 +1,143 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <style type="text/css">
+    body {
+      font-family: "Lato", sans-serif;
+    }
+
+.sidenav {
+  height: 100%;
+  width: 160px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+
+.sidenav a {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+}
+
+.sidenav a:hover {
+  color: #f1f1f1;
+}
+
+.main {
+  margin-left: 160px; /* Same as the width of the sidenav */
+  font-size: 28px; /* Increased text to enable scrolling */
+  padding: 0px 10px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+
+.row{
+margin-left: 166px;
+height: 50px;
+margin-right: 0px;
+}
+.roupa{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  clear: both;
+}
+
+.Escolher{
+  padding: 10px;
+  float: right; 
+  margin:10px;
+  background-color: grey;
+  border-radius: 10px;
+  color: white;
+  width: 75px;
+  height: 40px;
+
+}
+
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+.favoritar{
+width:55px;
+margin-left: 5px;
+
+}
+
+.selecionado{
+  margin-right: 5px;
+  margin-top: 20px;
+  width: 300px;
+  height: 70px;
+  margin-bottom: 5px;
+  float:right;
+  border-style: solid;
+  padding: 5px;
+  border-color: grey;
+}
+
+#sair{
+  position: absolute;
+  filter: invert(100%);
+  margin-bottom: 10px;
+  bottom: 0;
+
+}
+</style>
+
+</head>
+<body>
+
+<div class="sidenav">
+  <a href="Selecao.html">Seleçao</a>
+  <a href="Superior.html">Superior</a>
+  <a href="Inferior.html">Inferior</a>
+  <a href="add.html">Adicionar</a>
+  <a href="favoritos.html">Favoritas</a>
+  <a href="#contact">Sugestões</a>
+  <a href="#devolver"><img id="sair" src="{% static 'css/input.png' %}" width="80px" height="80px"></a>
+</div>
+
+<div class="row">
+  <div class="Escolher">
+    <p>Escolher</p>
+  </div>
+  <div class="favoritar">
+    <img src="{% static 'css/star.png' %}" width="50px" height="50px">
+  </div>
+  <div class="roupa">
+    <div>
+      <a href="Superior.html"><img src="camiseta-desenho.jpg" width="200px" height="200px"></a>
+    </div>
+    <div>
+      <a href="Inferior.html"><img src="calca-desenho.jpg" width="300px" height="300px"></a>
+    </div>
+  </div>
+  <div class="selecionado">
+    <p>Superior:</p>
+    <p>Inferior:</p>
+  </div>
+  
+</div>
+
+</body>
+</html>
