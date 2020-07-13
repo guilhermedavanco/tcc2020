@@ -83,6 +83,7 @@ void loop()
     cursor->execute(INSERT_SQL);
     cursor->get_columns();
     do {
+      yield();
       row = cursor->get_next_row();
       if (row != NULL) {
         for (int i = 0; i < NUM_COLUNAS; i++) {
