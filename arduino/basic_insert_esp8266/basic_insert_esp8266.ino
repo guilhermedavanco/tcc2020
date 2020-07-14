@@ -80,15 +80,21 @@ void loop()
   row_values *row = NULL;
   Serial.println(conn.connected());
   if (conn.connected()) {
+    Serial.println(conn.connected());
     cursor->execute(INSERT_SQL);
-    cursor->get_columns();
+    Serial.println(conn.connected());
+    delay(1000);
+    column_names *cols = cursor->get_columns();
+    
     do {
       yield();
       row = cursor->get_next_row();
       if (row != NULL) {
         for (int i = 0; i < NUM_COLUNAS; i++) {
-          Serial.println(row->values[i]);
+          Serial.print(row->values[i]);
+          Serial.print(" | ");
         }
+        Serial.println(" ");
       }
     } while (row != NULL);
   }
