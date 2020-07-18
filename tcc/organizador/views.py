@@ -15,6 +15,8 @@ def inferior(request):
 	print(pecas)
 
 	return render(request,'organizador/Inferior.html',{'pecas':pecas})
+
+
 def add(request):
 	if request.method == "POST":
 		print('entrou!')
@@ -22,12 +24,13 @@ def add(request):
 		print(form)
 		if form.is_valid():
 			form.save()
-			print('salvo')
-			return redirect('superior/')
+			return redirect('/')
 		else:
 			print('nao entrou')
 	else:
-		form= addItem()
-	return render(request,'organizador/Add.html',{'form':form})
+		form = addItem()
+	return render(request,'organizador/add.html',{'form':form})
+
+
 def favoritos(request):
 	return render(request,'organizador/Favoritos.html')

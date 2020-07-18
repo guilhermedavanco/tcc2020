@@ -157,7 +157,7 @@ width: 100px;
   {%for i in pecas%}
   <div class="responsive">
       <div class="gallery">
-        <a target="_blank" href="camisa-preta.jpg">
+        <a target="_blank" href="{{i.foto.url}}">
           <img src="{{i.foto.url}}" alt="foto" width="600" height="400">
         </a>
         <div class="desc">{{i.descricao}}</div>
