@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Bootstrap Example</title>
+  <title>TCC</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -114,12 +114,12 @@ margin-right: 0px;
 <body>
 
 <div class="sidenav">
-  <a href="Selecao.html">Seleçao</a>
-  <a href="Superior.html">Superior</a>
-  <a href="Inferior.html">Inferior</a>
-  <a href="add.html">Adicionar</a>
-  <a href="#add">Favoritas</a>
-  <a href="#contact">Sugestões</a>
+  <a href="{% url 'selecao' %}">Seleçao</a>
+  <a href="{% url 'superior' %}">Superior</a>
+  <a href="{% url 'inferior' %}">Inferior</a>
+  <a href="{% url 'add' %}">Adicionar</a>
+  <a href="{% url 'favoritos' %}">Favoritas</a>
+  <a href="#sugestoes">Sugestões</a>
 </div>
 <div class="container-fluid">
   <br>
@@ -128,40 +128,13 @@ margin-right: 0px;
     </div>
     <div class="col-sm-8">
     <div class="form">
-    <form method="GET">
-      <div class="form-group">
-        <label for="Descrição">Descrição:</label>
-        <input type="text" name="Descrição" placeholder="Insira uma descrição" class="form-control">
-        <br>
-        <label for="RFID">RFID:</label>
-        <input type="text" name="RFID" placeholder="Insira a Etiqueta RFID" class="form-control">
-        <br>
-        <label for="foto">Foto:</label>
-        <input type="file" name="foto" placeholder="Foto" class="form-control">
-        <br>
-        <select class="form-control">
-          <option>COR</option>
-          <option>Preta</option>
-          <option>Braca</option>
-          <option>Cinza</option>
-        </select>
-        <br>
-        <select class="form-control">
-          <option>TAMANHO</option>
-          <option>P</option>
-          <option>M</option>
-        </select>
-        <br>
-        <select class="form-control">
-          <option>TIPO</option>
-          <option>Superior</option>
-          <option>Inferior</option>
-        </select>
-        <br>
-        <button class="btn btn-primary">Adicionar</button>
-      </div>
-    </form>
+      <form method="post">
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit" class="btn btn-primary">Adicionar</button>
+      </form>
     </div>
+
     </div>
     <div class="col-sm-2"></div>
   </div>

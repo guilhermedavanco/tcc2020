@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Bootstrap Example</title>
+  <title>TCC</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -108,12 +108,12 @@ margin-left: 5px;
 <body>
 
 <div class="sidenav">
-  <a href="Selecao.html">Seleçao</a>
-  <a href="Superior.html">Superior</a>
-  <a href="Inferior.html">Inferior</a>
-  <a href="add.html">Adicionar</a>
-  <a href="favoritos.html">Favoritas</a>
-  <a href="#contact">Sugestões</a>
+  <a href="{% url 'selecao' %}">Seleçao</a>
+  <a href="{% url 'superior' %}">Superior</a>
+  <a href="{% url 'inferior' %}">Inferior</a>
+  <a href="{% url 'add' %}">Adicionar</a>
+  <a href="{% url 'favoritos' %}">Favoritas</a>
+  <a href="#sugestoes">Sugestões</a>
   <a href="#devolver"><img id="sair" src="{% static 'css/input.png' %}" width="80px" height="80px"></a>
 </div>
 

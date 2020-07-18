@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Bootstrap Example</title>
+  <title>TCC</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -122,11 +122,11 @@ width: 100px;
 <body>
 
 <div class="sidenav">
-  <a href="Selecao.html">Seleçao</a>
-  <a href="Superior.html">Superior</a>
-  <a href="Inferior.html">Inferior</a>
-  <a href="add.html">Adicionar</a>
-  <a href="#add">Favoritas</a>
+ <a href="{% url 'selecao' %}">Seleçao</a>
+  <a href="{% url 'superior' %}">Superior</a>
+  <a href="{% url 'inferior' %}">Inferior</a>
+  <a href="{% url 'add' %}">Adicionar</a>
+  <a href="{% url 'favoritos' %}">Favoritas</a>
   <a href="#contact">Sugestões</a>
 </div>
 <div class="row">
@@ -154,102 +154,18 @@ width: 100px;
 </div>
 
 <div class="row2">
-  <div class="responsive">
+
+{%for i in pecas%}
+<div class="responsive">
     <div class="gallery">
       <a target="_blank" href="camisa-preta.jpg">
-        <img src="camisa-preta.jpg" alt="Mountains" width="600" height="400">
+        <img src="{{i.foto.url}}" alt="foto" width="600" height="400">
       </a>
-      <div class="desc">Add a description of the image here</div>
+      <div class="desc">{{i.descricao}}</div>
     </div>
-  </div>
-  <div class="responsive">
-    <div class="gallery">
-      <a target="_blank" href="camisa-preta.jpg">
-        <img src="camisa-preta.jpg" alt="Mountains" width="600" height="400">
-      </a>
-      <div class="desc">Add a description of the image here</div>
-    </div>
-  </div>
-  <div class="responsive">
-    <div class="gallery">
-      <a target="_blank" href="camisa-preta.jpg">
-        <img src="camisa-preta.jpg" alt="Mountains" width="600" height="400">
-      </a>
-      <div class="desc">Add a description of the image here</div>
-    </div>
-  </div>
-  <div class="responsive">
-    <div class="gallery">
-      <a target="_blank" href="camisa-preta.jpg">
-        <img src="camisa-preta.jpg" alt="Mountains" width="600" height="400">
-      </a>
-      <div class="desc">Add a description of the image here</div>
-    </div>
-  </div>
-  <div class="responsive">
-    <div class="gallery">
-      <a target="_blank" href="camisa-preta.jpg">
-        <img src="camisa-preta.jpg" alt="Mountains" width="600" height="400">
-      </a>
-      <div class="desc">Add a description of the image here</div>
-    </div>
-  </div>
-  <div class="responsive">
-    <div class="gallery">
-      <a target="_blank" href="camisa-preta.jpg">
-        <img src="camisa-preta.jpg" alt="Mountains" width="600" height="400">
-      </a>
-      <div class="desc">Add a description of the image here</div>
-    </div>
-  </div>
-  <div class="responsive">
-    <div class="gallery">
-      <a target="_blank" href="camisa-preta.jpg">
-        <img src="camisa-preta.jpg" alt="Mountains" width="600" height="400">
-      </a>
-      <div class="desc">Add a description of the image here</div>
-    </div>
-  </div>
-  <div class="responsive">
-    <div class="gallery">
-      <a target="_blank" href="camisa-preta.jpg">
-        <img src="camisa-preta.jpg" alt="Mountains" width="600" height="400">
-      </a>
-      <div class="desc">Add a description of the image here</div>
-    </div>
-  </div>
-  <div class="responsive">
-    <div class="gallery">
-      <a target="_blank" href="camisa-preta.jpg">
-        <img src="camisa-preta.jpg" alt="Mountains" width="600" height="400">
-      </a>
-      <div class="desc">Add a description of the image here</div>
-    </div>
-  </div>
-  <div class="responsive">
-    <div class="gallery">
-      <a target="_blank" href="camisa-preta.jpg">
-        <img src="camisa-preta.jpg" alt="Mountains" width="600" height="400">
-      </a>
-      <div class="desc">Add a description of the image here</div>
-    </div>
-  </div>
-  <div class="responsive">
-    <div class="gallery">
-      <a target="_blank" href="camisa-preta.jpg">
-        <img src="camisa-preta.jpg" alt="Mountains" width="600" height="400">
-      </a>
-      <div class="desc">Add a description of the image here</div>
-    </div>
-  </div>
-  <div class="responsive">
-    <div class="gallery">
-      <a target="_blank" href="camisa-preta.jpg">
-        <img src="camisa-preta.jpg" alt="Mountains" width="600" height="400">
-      </a>
-      <div class="desc">Add a description of the image here</div>
-    </div>
-  </div>
+</div>
+{%endfor%}
+
 </div>
 
 
