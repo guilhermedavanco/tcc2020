@@ -82,13 +82,20 @@ void SQLUpdateEntrada() {
   }
   char dados[20];
   Serial.readString().toCharArray(dados, 20);
-  char posicao[2];
-  for (int i = 0; i < 2; i++) {
-    posicao[i] = dados[i];
+  char posicao[5];
+  int i = 0, j = 0;
+  while (dados[i] != ' '){
+    posicao[j] = dados[i];
+    i++;
+    j++;
   }
-  char rfid[18];
-  for (int i = 0; i < 18; i++) {
-    rfid[i] = dados[i + 2];
+  char rfid[20];
+  i++;
+  j = 0;
+  while (dados[i] != ' '){
+    rfid[j] = dados[i];
+    i++;
+    j++;
   }
   char QUERY_UPDATE[] = "UPDATE nome_da_tabela SET posicao = %s, rfid = %s, executado = true WHERE id = %d;";
   char query[128];
