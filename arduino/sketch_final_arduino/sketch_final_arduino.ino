@@ -15,28 +15,35 @@ void setup() {
   Serial.begin(115200);
   Serial1.begin(115200);
   delay(10000);
-  Serial.readString();
+  if (Serial1.available())
+    Serial1.readString();
 }
 
 void loop() {
-  char dados[20];
+  char dados[30];
+  char c;
+  int x = 0;
   int posicaoDesejada;
   Serial1.println('s');
   Serial.println('s');
   delay(1000);
   Serial.println(Serial1.available());
   if (Serial1.available()) {
-    //Serial1.readString().toCharArray(dados, 20);
-    int inByte = Serial1.read();
-    Serial.print(inByte, DEC);
-    //posicaoDesejada = atoi(dados);
-    //Serial.println(dados);
-    if (posicaoDesejada == -1) {
-      receberPeca();
-    }
-    else {
-      enviarPeca(posicaoDesejada);
-    }
+    do {
+      c = Serial1.read();
+      dados[x] = c;
+      x++;
+      delay(1);
+    } while (c != '\n');
+    dados[x - 1] = '\0';
+    //    posicaoDesejada = atoi(dados);
+    Serial.println(dados);
+    //    if (posicaoDesejada == -1) {
+    //      receberPeca();
+    //    }
+    //    else {
+    //      enviarPeca(posicaoDesejada);
+    //    }
   }
 }
 
@@ -65,7 +72,7 @@ void receberPeca() {
   char rfid[20];
   //ler rfid
   recebimentoBraco();
-  char dados[20];
+  char dados[30];
   sprintf(dados, "%i %s", pos, rfid);
   Serial1.println('e');
   delay(50);

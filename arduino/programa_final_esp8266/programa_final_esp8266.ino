@@ -62,11 +62,11 @@ void SQLSelect() {
       id = atol(row->values[0]);
       Serial.println(row->values[1]);
     }
-    while(row!=NULL){
-        row = cursor->get_next_row();
+    while (row != NULL) {
+      row = cursor->get_next_row();
     }
   }
-  
+
   delete cursor;
 }
 
@@ -84,11 +84,19 @@ void SQLUpdateEntrada() {
     yield();
     delay(10);
   }
-  char dados[20];
-  Serial.readString().toCharArray(dados, 20);
+  char dados[30];
+  char c;
+  int x = 0;
+  do {
+    c = Serial.read();
+    dados[x] = c;
+    x++;
+    delay(1);
+  } while (c != '\n');
+  dados[x - 1] = '\0';
   char posicao[5];
   int i = 0, j = 0;
-  while (dados[i] != ' '){
+  while (dados[i] != ' ') {
     posicao[j] = dados[i];
     i++;
     j++;
@@ -96,7 +104,7 @@ void SQLUpdateEntrada() {
   char rfid[20];
   i++;
   j = 0;
-  while (dados[i] != ' '){
+  while (dados[i] != ' ') {
     rfid[j] = dados[i];
     i++;
     j++;
