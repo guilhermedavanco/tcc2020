@@ -13,6 +13,7 @@ void setup() {
   pinMode(PIN_MOTOR, OUTPUT);
   attachInterrupt(digitalPinToInterrupt(REED), incrementarPosicao, RISING);
   Serial.begin(115200);
+  Serial1.begin(115200);
   delay(10000);
   Serial.readString();
 }
@@ -20,11 +21,16 @@ void setup() {
 void loop() {
   char dados[20];
   int posicaoDesejada;
+  Serial1.println('s');
   Serial.println('s');
   delay(1000);
-  if (Serial.available()) {
-    Serial.readString().toCharArray(dados, 20);
-    posicaoDesejada = atoi(dados);
+  Serial.println(Serial1.available());
+  if (Serial1.available()) {
+    //Serial1.readString().toCharArray(dados, 20);
+    int inByte = Serial1.read();
+    Serial.print(inByte, DEC);
+    //posicaoDesejada = atoi(dados);
+    //Serial.println(dados);
     if (posicaoDesejada == -1) {
       receberPeca();
     }
@@ -61,16 +67,16 @@ void receberPeca() {
   recebimentoBraco();
   char dados[20];
   sprintf(dados, "%i %s", pos, rfid);
-  Serial.println('e');
+  Serial1.println('e');
   delay(50);
-  Serial.println(dados);
+  Serial1.println(dados);
 }
 
 void enviarPeca(int posicao) {
   moverEstrutura(posicao);
   entregaBraco();
   EEPROM.write(pos, 0);
-  Serial.println('c');
+  Serial1.println('c');
 }
 
 void recebimentoBraco() {
