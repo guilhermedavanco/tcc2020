@@ -22,4 +22,5 @@ urlpatterns = [
     path('inferior/', views.inferior, name='inferior'),
     path('add/', views.add, name='add'),
     path('favoritos/', views.favoritos, name='favoritos'),
+    path('superior/ajax/escolhe/', views.escolhe, name='ajax/escolhe'),
 ]

@@ -37,5 +37,9 @@ class Fluxo(models.Model):
         return str(self.data) +"-" + self.item.descricao
     
 class Favorito(models.Model):
-    Superior = models.ForeignKey(Item, on_delete=models.CASCADE,related_name='Superior',blank=True)
-    Inferior = models.ForeignKey(Item, on_delete=models.CASCADE,related_name='Inferior',blank=True)
+    superior = models.ForeignKey(Item, on_delete=models.CASCADE,related_name='Superior',blank=True)
+    inferior = models.ForeignKey(Item, on_delete=models.CASCADE,related_name='Inferior',blank=True)
+
+class Escolha(models.Model):
+    superior = models.ForeignKey(Item, on_delete=models.CASCADE,related_name='Sup',blank=True)
+    inferior = models.ForeignKey(Item, on_delete=models.CASCADE,related_name='Inf',blank=True)

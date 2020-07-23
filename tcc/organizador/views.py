@@ -1,11 +1,14 @@
 from django.shortcuts import render,redirect
-from .models import Item,Fluxo
+from .models import Item,Fluxo,Escolha
 from .form import addItem
+from django.http import HttpResponse
 
 # Create your views here.
 
 def selecao(request):
-	return render(request,'organizador/Selecao.html')
+	atual=Escolha.objects.all()
+	return render(request,'organizador/Selecao.html',{'atual':atual})
+
 def superior(request):
 	pecas=Item.objects.filter(tipo="S")
 	print(pecas)
@@ -34,3 +37,14 @@ def add(request):
 
 def favoritos(request):
 	return render(request,'organizador/Favoritos.html')
+
+def escolhe(request):
+	peca = request.POST.get('peca')
+	tipo = request.POST.get('tipo')
+	teste = Escolha.objects.all()
+	print("entrou")
+	if tipo == 'S':
+		Escolha.objects.all().update(superior=peca)
+	elif tipo == 'I':
+		Escolha.objects.all().update(inferior=peca)
+	return HttpResponse("Atualizado")

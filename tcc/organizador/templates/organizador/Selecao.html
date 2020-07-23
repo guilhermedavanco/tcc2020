@@ -124,18 +124,39 @@ margin-left: 5px;
   <div class="favoritar">
     <img src="{% static 'css/star.png' %}" width="50px" height="50px">
   </div>
+  {% if atual %}
+  
   <div class="roupa">
     <div>
-      <a href="Superior.html"><img src="camiseta-desenho.jpg" width="200px" height="200px"></a>
+      <a href="{{atual.0.superior.foto.url}}"><img src="{{atual.0.superior.foto.url}}" width="200px" height="200px"></a>
     </div>
     <div>
-      <a href="Inferior.html"><img src="calca-desenho.jpg" width="300px" height="300px"></a>
+      <a href="{{atual.0.inferior.foto.url}}"><img src="{{atual.0.inferior.foto.url}}" width="300px" height="300px"></a>
     </div>
   </div>
+
+  <div class="selecionado">
+    <p><b>Superior:</b> {{atual.0.id}}</p>
+    <p><b>Inferior:</b> {{atual.0.inferior.descricao}}</p>
+  </div>
+
+  {% else %}
+  <div class="roupa">
+    <div>
+      <a href="{% url 'superior' %}"><img src="{% static 'css/camiseta-desenho.jpg' %}" width="200px" height="200px"></a>
+    </div>
+    <div>
+      <a href="{% url 'inferior' %}"><img src="{% static 'css/calca-desenho.jpg' %}" width="300px" height="300px"></a>
+    </div>
+  </div>
+
   <div class="selecionado">
     <p>Superior:</p>
     <p>Inferior:</p>
   </div>
+  {% endif %}
+  
+
   
 </div>
 

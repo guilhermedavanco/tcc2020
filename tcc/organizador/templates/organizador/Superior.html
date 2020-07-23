@@ -165,9 +165,58 @@ width: 100px;
     </div>
 </div>
 {%endfor%}
-
+{% csrf_token %}
 </div>
+<script type="text/javascript">
+  function escolhe(peca,tipo) {
+    function csrfSafeMethod(method) {
+        // these HTTP methods do not require CSRF protection
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+    const csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
+        $.ajaxSetup({
+        beforeSend: function(xhr, settings) {
+            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            }
+        }
+    }); 
+        $.ajax({
+            url : "ajax/escolhe/", // the endpoint
+            type : "POST", // http method
+            data : {'peca': peca,'tipo': tipo}, // data sent with the post request
+            success : function(json) {
+                console.log(json); // log the returned json to the console
+                console.log("success"); // another sanity check
+            },
+            error : function(xhr,errmsg,err) {
+                console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+            },
+        });
+  };
+ 
+//$(document).ready(function(){
+//      $("#myInput").on("keyup", function() {
+//        var value = $(this).val().toLowerCase();
+//        $("#myTable tr").filter(function() {
+//          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+//        });
+//      });
+//   $(".check").change(function(){
+//       var id = $(this).val();
+//        console.log(id);
+//        if($(this).prop("checked")==true){
+//            $(this).prop("checked",true);
+//            var bool = 1;
+//        }else{
+//            $(this).prop("checked",false);
+//            var bool = 0;
+//       }
+//        update_check(bool,id);
+//    });
+//});
 
+</script>
 
 </body>
 </html>
