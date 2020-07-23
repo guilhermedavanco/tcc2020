@@ -14,7 +14,7 @@ void setup() {
   attachInterrupt(digitalPinToInterrupt(REED), incrementarPosicao, RISING);
   Serial.begin(115200);
   Serial1.begin(115200);
-//  delay(10000);
+  delay(10000);
   if (Serial1.available())
     Serial1.readString();
 }
@@ -27,9 +27,9 @@ void loop() {
   Serial1.println('s');
   Serial.println('s');
   delay(1000);
-  if (Serial.available()) {
+  if (Serial1.available()) {
     do {
-      c = Serial.read();
+      c = Serial1.read();
       dados[x] = c;
       x++;
       delay(1);
@@ -68,7 +68,6 @@ void receberPeca() {
   while (EEPROM.read(posicaoVazia)) {
     posicaoVazia = (posicaoVazia + 1) % NUM_POS;  //se ultrapassar NUM_POS, volta pra 0
   }
-  Serial.println(posicaoVazia);
   moverEstrutura(posicaoVazia);
   EEPROM.write(pos, 1);
   char rfid[20] = "FF FF FF FF";
@@ -76,14 +75,13 @@ void receberPeca() {
   recebimentoBraco();
   char dados[30];
   sprintf(dados, "%i %s", pos, rfid);
-  Serial.println('e');
+  Serial1.println('e');
   delay(100);
-  Serial.println(dados);
+  Serial1.println(dados);
 }
 
 void enviarPeca(int posicao) {
   Serial.println("Enviar peça");
-  Serial.println(posicao);
   moverEstrutura(posicao);
   entregaBraco();
   EEPROM.write(pos, 0);
