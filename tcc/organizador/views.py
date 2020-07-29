@@ -42,9 +42,14 @@ def escolhe(request):
 	peca = request.POST.get('peca')
 	tipo = request.POST.get('tipo')
 	teste = Escolha.objects.all()
-	print("entrou")
 	if tipo == 'S':
 		Escolha.objects.all().update(superior=peca)
 	elif tipo == 'I':
 		Escolha.objects.all().update(inferior=peca)
-	return HttpResponse("Atualizado")
+	return HttpResponse('ok!')
+
+def retirar(request):
+	superior = request.POST.get('peca1')
+	inferior = request.POST.get('peca2')
+	print(superior + inferior)
+	return HttpResponse('ok!')
