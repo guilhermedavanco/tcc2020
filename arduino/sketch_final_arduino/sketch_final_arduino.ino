@@ -33,16 +33,18 @@ void loop() {
       dados[x] = c;
       x++;
       delay(1);
+      
     } while (c != '\n');
     dados[x - 1] = '\0';
-    posicaoDesejada = atoi(dados);
-    Serial.println(posicaoDesejada);
-        if (posicaoDesejada == -1) {
-          receberPeca();
-        }
-        else {
-          enviarPeca(posicaoDesejada);
-        }
+    Serial.println(dados);
+    //posicaoDesejada = atoi(dados);
+    //Serial.println(posicaoDesejada);
+    //    if (posicaoDesejada == -1) {
+    //      receberPeca();
+    //    }
+    //    else {
+    //      enviarPeca(posicaoDesejada);
+    //    }
   }
 }
 

@@ -32,7 +32,7 @@ class Fluxo(models.Model):
     item = models.ForeignKey(Item, on_delete=models.CASCADE)
     direcao = models.CharField(max_length=200,choices=TP,default='S')
     realizado = models.BooleanField(default=False)
-
+    #posicao = 
     def __str__(self):
         return str(self.data) +"-" + self.item.descricao
     
@@ -41,5 +41,5 @@ class Favorito(models.Model):
     inferior = models.ForeignKey(Item, on_delete=models.CASCADE,related_name='Inferior',blank=True)
 
 class Escolha(models.Model):
-    superior = models.ForeignKey(Item, on_delete=models.CASCADE,related_name='Sup',blank=True)
-    inferior = models.ForeignKey(Item, on_delete=models.CASCADE,related_name='Inf',blank=True)
+    superior = models.ForeignKey(Item, on_delete=models.CASCADE,related_name='Sup',blank=True,null=True)
+    inferior = models.ForeignKey(Item, on_delete=models.CASCADE,related_name='Inf',blank=True,null=True)

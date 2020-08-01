@@ -42,14 +42,26 @@ def escolhe(request):
 	peca = request.POST.get('peca')
 	tipo = request.POST.get('tipo')
 	teste = Escolha.objects.all()
-	if tipo == 'S':
-		Escolha.objects.all().update(superior=peca)
-	elif tipo == 'I':
-		Escolha.objects.all().update(inferior=peca)
+	inst=Item.objects.filter(id=peca)[0]
+	teste = Escolha.objects.all()
+	if teste:
+		if tipo == 'S':
+			Escolha.objects.all().update(superior=inst)
+		elif tipo == 'I':
+			Escolha.objects.all().update(inferior=inst)
+	else:
+		if tipo == 'S':
+			Escolha.objects.create(superior=inst)
+		elif tipo == 'I':
+			Escolha.objects.create(inferior=inst)
 	return HttpResponse('ok!')
 
 def retirar(request):
 	superior = request.POST.get('peca1')
 	inferior = request.POST.get('peca2')
 	print(superior + inferior)
+	inst=Item.objects.filter(id=superior)[0]
+	inst2=Item.objects.filter(id=inferior)[0]
+	Fluxo.objects.create(item=inst)
+	Fluxo.objects.create(item=inst2)
 	return HttpResponse('ok!')
