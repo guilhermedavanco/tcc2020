@@ -19,6 +19,7 @@ class Item(models.Model):
     disponibilidade = models.BooleanField()
     foto = models.ImageField(upload_to='foto')
     rfid = models.CharField(max_length=200,unique=True)
+    posicao = models.IntegerField(default=-1)
 
     def __str__(self):
         return self.descricao
@@ -29,10 +30,9 @@ class Fluxo(models.Model):
         ('S','Saiu'),
     ]
     data = models.DateTimeField(default=timezone.now())
-    item = models.ForeignKey(Item, on_delete=models.CASCADE)
+    item = models.ForeignKey(Item, on_delete=models.CASCADE,blank=True,null=True)
     direcao = models.CharField(max_length=200,choices=TP,default='S')
-    realizado = models.BooleanField(default=False)
-    #posicao = 
+    realizado = models.BooleanField(default=False) 
     def __str__(self):
         return str(self.data) +"-" + self.item.descricao
     

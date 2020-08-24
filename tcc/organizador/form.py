@@ -5,4 +5,4 @@ from .models import Item
 class addItem(forms.ModelForm):
 	class Meta:
 		model = Item
-		fields= '__all__'
+		exclude = ['posicao']	

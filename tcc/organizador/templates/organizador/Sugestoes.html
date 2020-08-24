@@ -99,21 +99,7 @@ div.desc {
 margin-left: 166px;
 
 }
-.row{
-margin-left: 166px;
-height: 50px;
-margin-right: 0px;
 
-}
-.form{
-width: 100%;
-background-color: grey;
-padding: 5px;
-margin-top: 5px;
-}
-select{
-width: 100px;
-}
 
 
 </style>
@@ -129,47 +115,34 @@ width: 100px;
   <a href="{% url 'favoritos' %}">Favoritas</a>
   <a href="{% url 'sugestoes' %}">Sugestões</a>
 </div>
-<div class="row">
-  <div class="form">
-  <form method="GET">
-    <select>
-      <option>COR</option>
-      <option>Preta</option>
-      <option>Braca</option>
-      <option>Cinza</option>
-    </select>
-    <select>
-      <option>TAMANHO</option>
-      <option>P</option>
-      <option>M</option>
-    </select>
-    <select>
-      <option>TIPO</option>
-      <option>Curta</option>
-      <option>Longa</option>
-    </select>
-    <button>Filtrar</button>
-  </form>
-</div>
-</div>
 
 <div class="row2">
-
-{%for i in pecas%}
-<div class="responsive">
+  {% for i in conj %}
+  <div class="responsive">
     <div class="gallery">
-      <a onclick="escolhe({{i.id}},'S'); return false;" href="{% url 'selecao' %}">
-        <img src="{{i.foto.url}}" alt="foto" width="600" height="400">
+      <a onclick="ambas({{i.0.id}},{{i.1.id}}); return false;" href="{% url 'selecao' %}">
+        <img src="{{i.0.foto.url}}" alt="Mountains" width="600" height="400">
+        <img src="{{i.1.foto.url}}" alt="Mountains" width="600" height="400">
       </a>
-      <div class="desc">{{i.descricao}}</div>
+      <div class="desc">{{i.0.descricao}} + {{i.1.descricao}}</div>
     </div>
+  </div>
+  {% endfor %}
 </div>
-{%endfor%}
 {% csrf_token %}
-</div>
 <input type="hidden" id="Url" data-url="{% url 'selecao' %}" />
 <script type="text/javascript">
+
+  function ambas(peca1,peca2){
+    escolhe(peca1,'S');
+    escolhe(peca2,'I');
+    //var url = $("#Url").attr("data-url");
+    //document.location.href = url;
+    console.log('teili');
+  }
+
   function escolhe(peca,tipo) {
+
     function csrfSafeMethod(method) {
         // these HTTP methods do not require CSRF protection
         return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
@@ -189,8 +162,7 @@ width: 100px;
             success : function(json) {
                 console.log(json); // log the returned json to the console
                 console.log("success"); // another sanity check
-                var url = $("#Url").attr("data-url");
-                document.location.href = url;
+                
             },
             error : function(xhr,errmsg,err) {
                 console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the 
@@ -199,6 +171,7 @@ width: 100px;
   };
  
 </script>
+
 
 </body>
 </html>

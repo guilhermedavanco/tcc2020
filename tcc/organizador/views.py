@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from .models import Item,Fluxo,Escolha
 from .form import addItem
 from django.http import HttpResponse
+from random import randrange
 
 # Create your views here.
 
@@ -37,6 +38,17 @@ def add(request):
 
 def favoritos(request):
 	return render(request,'organizador/Favoritos.html')
+
+def sugestoes(request):
+	sup=Item.objects.filter(tipo="S")
+	inf=Item.objects.filter(tipo="I")
+	n_sup=len(sup)
+	n_inf=len(inf)
+	conjunto=[]
+	for x in range(4):
+		conjunto.append((sup[randrange(n_sup)],inf[randrange(n_inf)]))	
+	print(conjunto)
+	return render(request,'organizador/Sugestoes.html',{'conj':conjunto})
 
 def escolhe(request):
 	peca = request.POST.get('peca')
