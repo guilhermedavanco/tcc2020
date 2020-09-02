@@ -104,7 +104,7 @@ void SQLUpdateEntrada() {
   char rfid[20];
   i++;
   j = 0;
-  while (dados[i] != ' ') {
+  while (dados[i] != '\n') {
     rfid[j] = dados[i];
     i++;
     j++;
