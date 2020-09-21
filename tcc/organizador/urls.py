@@ -18,8 +18,8 @@ from . import views
 
 urlpatterns = [
     path('', views.selecao, name='selecao'),
-    path('superior/', views.superior, name='superior'),
-    path('inferior/', views.inferior, name='inferior'),
+    path('superior/', views.SuperiorListView.as_view(), name='superior'),
+    path('inferior/', views.InferiorListView.as_view(), name='inferior'),
     path('add/', views.add, name='add'),
     path('favoritos/', views.favoritos, name='favoritos'),
     path('sugestoes/', views.sugestoes, name='sugestoes'),
@@ -27,4 +27,5 @@ urlpatterns = [
     path('inferior/ajax/escolhe/', views.escolhe, name='ajax/escolhe'),
     path('sugestoes/ajax/escolhe/', views.escolhe, name='ajax/escolhe'),
     path('ajax/retirar/', views.retirar, name='ajax/retirar'),
+    path('teste/', views.SuperiorListView.as_view(), name='teste')
 ]

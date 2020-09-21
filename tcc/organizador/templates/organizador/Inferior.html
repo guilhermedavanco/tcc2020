@@ -131,24 +131,10 @@ width: 100px;
 </div>
 <div class="row">
   <div class="form">
-  <form method="GET">
-    <select>
-      <option>COR</option>
-      <option>Preta</option>
-      <option>Braca</option>
-      <option>Cinza</option>
-    </select>
-    <select>
-      <option>TAMANHO</option>
-      <option>P</option>
-      <option>M</option>
-    </select>
-    <select>
-      <option>TIPO</option>
-      <option>Curta</option>
-      <option>Longa</option>
-    </select>
-    <button>Filtrar</button>
+  <form action="" method="GET">
+    {{form.tamanho}}
+    {{form.cor}}
+    <button type="submit" >Filtrar</button>
   </form>
 </div>
 </div>

@@ -1,8 +1,9 @@
 from django.shortcuts import render,redirect
 from .models import Item,Fluxo,Escolha
-from .form import addItem
+from .form import addItem,filtro
 from django.http import HttpResponse
 from random import randrange
+from django.views.generic import ListView
 
 # Create your views here.
 
@@ -14,6 +15,55 @@ def superior(request):
 	pecas=Item.objects.filter(tipo="S")
 	print(pecas)
 	return render(request,'organizador/Superior.html',{'pecas':pecas})
+
+class SuperiorListView(ListView):
+	model= Item
+	context_object_name = 'pecas'
+	template_name = "organizador/Superior.html"
+	def get_queryset(self):
+		filter_tam = self.request.GET.get('tamanho', '')
+		filter_cor = self.request.GET.get('cor', '')
+		filtros=[('tamanho',filter_tam),('cor',filter_cor),]     
+		print(filtros)
+		kwargs={}
+		for fil in filtros:
+			if(fil[1]!=''):
+				kwargs[fil[0]]=fil[1]
+		print(kwargs)
+		if (kwargs != {} ):
+			new_context = Item.objects.filter(**kwargs,tipo="S")
+		else:
+			new_context = Item.objects.filter(tipo="S")
+		return new_context
+	def get_context_data(self, **kwargs):
+		context = super(SuperiorListView, self).get_context_data(**kwargs)
+		context['form'] = filtro
+		return context
+
+class InferiorListView(ListView):
+	model= Item
+	context_object_name = 'pecas'
+	template_name = "organizador/Inferior.html"
+	def get_queryset(self):
+		filter_tam = self.request.GET.get('tamanho', '')
+		filter_cor = self.request.GET.get('cor', '')
+		filtros=[('tamanho',filter_tam),('cor',filter_cor),]     
+		print(filtros)
+		kwargs={}
+		for fil in filtros:
+			if(fil[1]!=''):
+				kwargs[fil[0]]=fil[1]
+		print(kwargs)
+		if (kwargs != {} ):
+			new_context = Item.objects.filter(**kwargs,tipo="I")
+		else:
+			new_context = Item.objects.filter(tipo="I")
+		return new_context
+	def get_context_data(self, **kwargs):
+		context = super(InferiorListView, self).get_context_data(**kwargs)
+		context['form'] = filtro
+		return context
+
 def inferior(request):
 	pecas=Item.objects.filter(tipo="I")
 	print(pecas)
