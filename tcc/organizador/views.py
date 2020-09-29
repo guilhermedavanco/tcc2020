@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from .models import Item,Fluxo,Escolha
+from .models import Item,Fluxo,Escolha,Favorito
 from .form import addItem,filtro
 from django.http import HttpResponse
 from random import randrange
@@ -10,11 +10,6 @@ from django.views.generic import ListView
 def selecao(request):
 	atual=Escolha.objects.all()
 	return render(request,'organizador/Selecao.html',{'atual':atual})
-
-def superior(request):
-	pecas=Item.objects.filter(tipo="S")
-	print(pecas)
-	return render(request,'organizador/Superior.html',{'pecas':pecas})
 
 class SuperiorListView(ListView):
 	model= Item
@@ -64,13 +59,6 @@ class InferiorListView(ListView):
 		context['form'] = filtro
 		return context
 
-def inferior(request):
-	pecas=Item.objects.filter(tipo="I")
-	print(pecas)
-
-	return render(request,'organizador/Inferior.html',{'pecas':pecas})
-
-
 def add(request):
 	if request.method == "POST":
 		print('entrou!')
@@ -87,7 +75,9 @@ def add(request):
 
 
 def favoritos(request):
-	return render(request,'organizador/Favoritos.html')
+	lista=Favorito.objects.all()
+	print(lista)
+	return render(request,'organizador/Favoritos.html',{'lista':lista})
 
 def sugestoes(request):
 	sup=Item.objects.filter(tipo="S")
@@ -126,4 +116,13 @@ def retirar(request):
 	inst2=Item.objects.filter(id=inferior)[0]
 	Fluxo.objects.create(item=inst)
 	Fluxo.objects.create(item=inst2)
+	return HttpResponse('ok!')
+
+def favoritar(request):
+	superior = request.POST.get('peca1')
+	inferior = request.POST.get('peca2')
+	print(superior + inferior)
+	inst=Item.objects.filter(id=superior)[0]
+	inst2=Item.objects.filter(id=inferior)[0]
+	Favorito.objects.create(superior=inst,inferior=inst2)
 	return HttpResponse('ok!')

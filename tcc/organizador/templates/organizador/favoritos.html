@@ -117,53 +117,80 @@ margin-left: 166px;
 </div>
 
 <div class="row2">
+    {% for i in lista %}
   <div class="responsive">
     <div class="gallery">
-      <a target="_blank" href="camisa-preta.jpg">
-        <img src="camisa-preta.jpg" alt="Mountains" width="600" height="400">
-        <img src="calça-preta.jpg" alt="Mountains" width="600" height="400">
+      <a onclick="ambas({{i.superior.id}},{{i.inferior.id}}); return false;" href="{% url 'selecao' %}">
+        <img src="{{i.superior.foto.url}}" alt="Mountains" width="600" height="400">
+        <img src="{{i.inferior.foto.url}}" alt="Mountains" width="600" height="400">
       </a>
-      <div class="desc">Add a description of the image here</div>
+      <div class="desc">{{i.superior.descricao}} + {{i.inferior.descricao}}</div>
     </div>
   </div>
-  <div class="responsive">
-    <div class="gallery">
-      <a target="_blank" href="camisa-preta.jpg">
-        <img src="camisa-preta.jpg" alt="Mountains" width="600" height="400">
-        <img src="calça-preta.jpg" alt="Mountains" width="600" height="400">
-      </a>
-      <div class="desc">Add a description of the image here</div>
-    </div>
-  </div>
-  <div class="responsive">
-    <div class="gallery">
-      <a target="_blank" href="camisa-preta.jpg">
-        <img src="camisa-preta.jpg" alt="Mountains" width="600" height="400">
-        <img src="calça-preta.jpg" alt="Mountains" width="600" height="400">
-      </a>
-      <div class="desc">Add a description of the image here</div>
-    </div>
-  </div>
-  <div class="responsive">
-    <div class="gallery">
-      <a target="_blank" href="camisa-preta.jpg">
-        <img src="camisa-preta.jpg" alt="Mountains" width="600" height="400">
-        <img src="calça-preta.jpg" alt="Mountains" width="600" height="400">
-      </a>
-      <div class="desc">Add a description of the image here</div>
-    </div>
-  </div>
-  <div class="responsive">
-    <div class="gallery">
-      <a target="_blank" href="camisa-preta.jpg">
-        <img src="camisa-preta.jpg" alt="Mountains" width="600" height="400">
-        <img src="calça-preta.jpg" alt="Mountains" width="600" height="400">
-      </a>
-      <div class="desc">Add a description of the image here</div>
-    </div>
-  </div>
+  {% endfor %}
 </div>
+{% csrf_token %}
+<input type="hidden" id="Url" data-url="{% url 'selecao' %}" />
+<script type="text/javascript">
 
+  function ambas(peca1,peca2){
+    escolhe(peca1,'S',peca2,'I');
+  }
 
+  function escolhe(peca1,tipo1,peca2,tipo2) {
+
+    function csrfSafeMethod(method) {
+        // these HTTP methods do not require CSRF protection
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+    const csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
+        $.ajaxSetup({
+        beforeSend: function(xhr, settings) {
+            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            }
+        }
+    }); 
+        $.ajax({
+            url : "ajax/escolhe/", // the endpoint
+            type : "POST", // http method
+            data : {'peca': peca1,'tipo': tipo1}, // data sent with the post request
+            success : function(json) {
+                console.log(json); // log the returned json to the console
+                console.log("success"); // another sanity check
+                
+            },
+            error : function(xhr,errmsg,err) {
+                console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the 
+            },
+        });
+    function csrfSafeMethod(method) {
+        // these HTTP methods do not require CSRF protection
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+        $.ajaxSetup({
+        beforeSend: function(xhr, settings) {
+            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            }
+        }
+    }); 
+        $.ajax({
+            url : "ajax/escolhe/", // the endpoint
+            type : "POST", // http method
+            data : {'peca': peca2,'tipo': tipo2}, // data sent with the post request
+            success : function(json) {
+                console.log(json); // log the returned json to the console
+                console.log("success"); // another sanity check
+                var url = $("#Url").attr("data-url");
+                document.location.href = url;
+                
+            },
+            error : function(xhr,errmsg,err) {
+                console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the 
+            },
+        });
+  };
+</script>
 </body>
 </html>

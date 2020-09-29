@@ -124,7 +124,8 @@ margin-left: 5px;
     <a href="#" onclick="retirar({{atual.0.superior.id}},{{atual.0.inferior.id}}); return false;">Retirar</a>
   </div>
   <div class="favoritar">
-    <img src="{% static 'css/star.png' %}" width="50px" height="50px">
+    <a href="#" onclick="favoritar({{atual.0.superior.id}},{{atual.0.inferior.id}}); return false;">
+    <img src="{% static 'css/star.png' %}" width="50px" height="50px"></a>
   </div>
   {% if atual %}
   
@@ -176,6 +177,32 @@ margin-left: 5px;
     }); 
         $.ajax({
             url : "ajax/retirar/", // the endpoint
+            type : "POST", // http method
+            data : {'peca1': peca1,'peca2': peca2}, // data sent with the post request
+            success : function(json) {
+                console.log(json); // log the returned json to the console
+                console.log("success"); // another sanity check
+            },
+            error : function(xhr,errmsg,err) {
+                console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the 
+            },
+        });
+  };
+  function favoritar(peca1,peca2) {
+    function csrfSafeMethod(method) {
+        // these HTTP methods do not require CSRF protection
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+    const csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
+        $.ajaxSetup({
+        beforeSend: function(xhr, settings) {
+            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            }
+        }
+    }); 
+        $.ajax({
+            url : "ajax/favoritar/", // the endpoint
             type : "POST", // http method
             data : {'peca1': peca1,'peca2': peca2}, // data sent with the post request
             success : function(json) {
