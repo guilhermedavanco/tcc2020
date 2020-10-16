@@ -134,14 +134,10 @@ margin-left: 166px;
 <script type="text/javascript">
 
   function ambas(peca1,peca2){
-    escolhe(peca1,'S');
-    escolhe(peca2,'I');
-    //var url = $("#Url").attr("data-url");
-    //document.location.href = url;
-    console.log('teili');
+    escolhe(peca1,'S',peca2,'I');
   }
 
-  function escolhe(peca,tipo) {
+  function escolhe(peca1,tipo1,peca2,tipo2) {
 
     function csrfSafeMethod(method) {
         // these HTTP methods do not require CSRF protection
@@ -158,10 +154,36 @@ margin-left: 166px;
         $.ajax({
             url : "ajax/escolhe/", // the endpoint
             type : "POST", // http method
-            data : {'peca': peca,'tipo': tipo}, // data sent with the post request
+            data : {'peca': peca1,'tipo': tipo1}, // data sent with the post request
             success : function(json) {
                 console.log(json); // log the returned json to the console
                 console.log("success"); // another sanity check
+                
+            },
+            error : function(xhr,errmsg,err) {
+                console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the 
+            },
+        });
+    function csrfSafeMethod(method) {
+        // these HTTP methods do not require CSRF protection
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+        $.ajaxSetup({
+        beforeSend: function(xhr, settings) {
+            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            }
+        }
+    }); 
+        $.ajax({
+            url : "ajax/escolhe/", // the endpoint
+            type : "POST", // http method
+            data : {'peca': peca2,'tipo': tipo2}, // data sent with the post request
+            success : function(json) {
+                console.log(json); // log the returned json to the console
+                console.log("success"); // another sanity check
+                var url = $("#Url").attr("data-url");
+                document.location.href = url;
                 
             },
             error : function(xhr,errmsg,err) {
