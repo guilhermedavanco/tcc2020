@@ -6,7 +6,7 @@
 
 #define REED 21 //input do reed switch
 #define INTERVALO_MINIMO 250  //intervalo entre dois pulsos para reset
-#define NUM_POS 20  //número de posições do armário
+#define NUM_POS 19  //número de posições do armário
 #define PIN_MOTOR 13  //pino do motor principal
 #define VEL_MOTOR 127 //velocidade do motor, 0-255
 
@@ -59,14 +59,14 @@ void loop() {
     } while (c != '\n');
     dados[x - 1] = '\0';
     Serial.println(dados);
-    //posicaoDesejada = atoi(dados);
-    //Serial.println(posicaoDesejada);
-    //    if (posicaoDesejada == -1) {
-    //      receberPeca();
-    //    }
-    //    else {
-    //      enviarPeca(posicaoDesejada);
-    //    }
+    posicaoDesejada = atoi(dados);
+    Serial.println(posicaoDesejada);
+    if (posicaoDesejada == -1) {
+      receberPeca();
+    }
+    else {
+      enviarPeca(posicaoDesejada);
+    }
   }
 }
 
@@ -81,9 +81,9 @@ void incrementarPosicao() {
 
 void moverEstrutura(int posicao) {
   while (pos != posicao) {
-    analogWrite(PIN_MOTOR, VEL_MOTOR);
+    digitalWrite(PIN_MOTOR, HIGH);
   }
-  analogWrite(PIN_MOTOR, 0);
+  digitalWrite(PIN_MOTOR, LOW);
 }
 
 void receberPeca() {
@@ -123,7 +123,6 @@ void receberPeca() {
   }
   //Fim da leitura do RFID
 
-  recebimentoBraco();
   char dados[30];
   sprintf(dados, "%i %s", pos, rfid);
   Serial1.println('e');
@@ -134,15 +133,6 @@ void receberPeca() {
 void enviarPeca(int posicao) {
   Serial.println("Enviar peça");
   moverEstrutura(posicao);
-  entregaBraco();
   EEPROM.write(pos, 0);
   Serial1.println('c');
-}
-
-void recebimentoBraco() {
-  //?
-}
-
-void entregaBraco() {
-  //?
 }
