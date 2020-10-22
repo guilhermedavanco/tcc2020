@@ -1,6 +1,6 @@
 #define REED 20//input do reed switch
 #define INTERVALO_MINIMO 250  //intervalo entre dois pulsos para reset
-#define NUM_POS 20  //número de posições do armário
+#define NUM_POS 19  //número de posições do armário
 #define PIN_MOTOR 8
 
 int pos = 0;
