@@ -1,6 +1,6 @@
 #define REED 21 //input do reed switch
 #define INTERVALO_MINIMO 250  //intervalo entre dois pulsos para reset
-#define NUM_POS 20  //número de posições do armário
+#define NUM_POS 19  //número de posições do armário
 #define PIN_MOTOR 8
 
 int pos = 0;
@@ -14,7 +14,6 @@ void setup() {
 }
 
 void loop() {
-  Serial.println(pos);
   if (pos == 10) {
     digitalWrite(PIN_MOTOR, LOW);
   }
@@ -26,8 +25,6 @@ void loop() {
 
 void incrementarPosicao() {
   pos++;
-  intervaloInterrupt = millis() - intervaloInterrupt;
-  if (pos > NUM_POS || intervaloInterrupt < INTERVALO_MINIMO) {
-    pos = 0;
-  }
+  pos %= NUM_POS;
+  Serial.println(pos);
 }
