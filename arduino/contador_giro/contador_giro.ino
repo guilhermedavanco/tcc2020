@@ -36,10 +36,10 @@ void loop() {
   if (pos == posDesejada) {
     digitalWrite(PIN_MOTOR, LOW);
   }
-  else if (pos != posAnterior) {
-    digitalWrite(PIN_MOTOR, LOW);
-    delay(500);
-  }
+//  else if (pos != posAnterior) {
+//    digitalWrite(PIN_MOTOR, LOW);
+//    delay(500);
+//  }
   else {
     digitalWrite(PIN_MOTOR, HIGH);
   }
