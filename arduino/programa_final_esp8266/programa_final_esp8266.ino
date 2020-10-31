@@ -12,7 +12,7 @@ WiFiClient client;
 MySQL_Connection conn(&client);
 MySQL_Cursor* cursor;
 
-int id;
+int id,item_id;
 
 void setup() {
   Serial.begin(115200);
@@ -50,7 +50,11 @@ void loop() {
 }
 
 void SQLSelect() {
-  char QUERY[] = "SELECT id, direcao, pos FROM db_tcc.organizador_item ORDER BY id DESC LIMIT 1;";
+  char QUERY[] = "SELECT fluxo.ID, fluxo.direcao, item.posicao,item.id FROM db_tcc.organizador_item as item"
+                 " INNER JOIN db_tcc.organizador_fluxo as fluxo"
+                 " ON item.id=fluxo.item_id"
+                 " WHERE fluxo.realizado=false"
+                 " ORDER BY fluxo.id DESC LIMIT 1;";
   cursor = new MySQL_Cursor(&conn);
   row_values *row = NULL;
   if (conn.connected()) {
@@ -60,7 +64,8 @@ void SQLSelect() {
     row = cursor->get_next_row();
     if (row != NULL) {
       id = atol(row->values[0]);
-      if (row->values[1] == "saida") {
+      item_id = atol(row->values[3]);
+      if (row->values[1] == "S") {
         Serial.println(row->values[2]);
       }
       else {
@@ -76,9 +81,16 @@ void SQLSelect() {
 }
 
 void SQLUpdateSaida() {
-  char QUERY_UPDATE[] = "UPDATE nome_da_tabela SET executado = true WHERE id = %d;";
+  char QUERY_UPDATE[] = "UPDATE db_tcc.organizador_fluxo SET realizado = true WHERE id = %d;";
   char query[128];
   sprintf(query, QUERY_UPDATE, id);
+  cursor = new MySQL_Cursor(&conn);
+  cursor->execute(query);
+  delete cursor;
+  delay(250);
+  char QUERY_UPDATE2[] = "UPDATE db_tcc.organizador_item SET posicao = -1,disponibilidade=true WHERE id = %d;";
+  char query2[128];
+  sprintf(query2, QUERY_UPDATE2, item_id);
   cursor = new MySQL_Cursor(&conn);
   cursor->execute(query);
   delete cursor;
@@ -114,9 +126,36 @@ void SQLUpdateEntrada() {
     i++;
     j++;
   }
-  char QUERY_UPDATE[] = "UPDATE nome_da_tabela SET posicao = %s, rfid = %s, executado = true WHERE id = %d;";
+  char QUERY3[] = "SELECT id FROM db_tcc.organizador_item WHERE rfid = %s;";
+  char query3[128];
+  sprintf(query3, QUERY3, rfid);
+  cursor = new MySQL_Cursor(&conn);
+  row_values *row = NULL;
+  if (conn.connected()) {
+    cursor->execute(QUERY);
+    delay(250);
+    column_names *cols = cursor->get_columns();
+    row = cursor->get_next_row();
+    if (row != NULL) {
+      item_id = atol(row->values[0]);
+    }
+    while (row != NULL) {
+      row = cursor->get_next_row();
+    }
+  }
+  
+  char QUERY_UPDATE[] = "UPDATE db_tcc.organizador_fluxo SET item_id = %s, realizado = true WHERE id = %d;";
   char query[128];
-  sprintf(query, QUERY_UPDATE, posicao, rfid, id);
+  sprintf(query, QUERY_UPDATE, item_id, id);
+  cursor = new MySQL_Cursor(&conn);
+  cursor->execute(query);
+  delete cursor;
+  
+  delay(250);
+  
+  char QUERY_UPDATE2[] = "UPDATE db_tcc.organizador_item SET posicao = -1,disponibilidade=false WHERE id = %d;";
+  char query2[128];
+  sprintf(query2, QUERY_UPDATE2, item_id);
   cursor = new MySQL_Cursor(&conn);
   cursor->execute(query);
   delete cursor;
