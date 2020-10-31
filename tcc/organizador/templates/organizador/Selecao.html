@@ -131,10 +131,10 @@ margin-left: 5px;
   
   <div class="roupa">
     <div>
-      <a href="{{atual.0.superior.foto.url}}"><img src="{{atual.0.superior.foto.url}}" width="200px" height="200px"></a>
+      <a href="{{atual.0.superior.foto.url}}"><img src="{{atual.0.superior.foto.url}}" width="200px" height="300px"></a>
     </div>
     <div>
-      <a href="{{atual.0.inferior.foto.url}}"><img src="{{atual.0.inferior.foto.url}}" width="300px" height="300px"></a>
+      <a href="{{atual.0.inferior.foto.url}}"><img src="{{atual.0.inferior.foto.url}}" width="200px" height="300px"></a>
     </div>
   </div>
 
@@ -182,6 +182,7 @@ margin-left: 5px;
             success : function(json) {
                 console.log(json); // log the returned json to the console
                 console.log("success"); // another sanity check
+                alert("Suas peças estão sendo separadas!!!");
             },
             error : function(xhr,errmsg,err) {
                 console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the 
@@ -208,6 +209,7 @@ margin-left: 5px;
             success : function(json) {
                 console.log(json); // log the returned json to the console
                 console.log("success"); // another sanity check
+                alert("Conjunto Adicionado aos Favoritos!");
             },
             error : function(xhr,errmsg,err) {
                 console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the 
