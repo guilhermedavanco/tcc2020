@@ -50,7 +50,7 @@ void loop() {
 }
 
 void SQLSelect() {
-  char QUERY[] = "SELECT * FROM db_tcc.organizador_item ORDER BY id DESC LIMIT 1;";
+  char QUERY[] = "SELECT id, direcao, pos FROM db_tcc.organizador_item ORDER BY id DESC LIMIT 1;";
   cursor = new MySQL_Cursor(&conn);
   row_values *row = NULL;
   if (conn.connected()) {
@@ -60,7 +60,12 @@ void SQLSelect() {
     row = cursor->get_next_row();
     if (row != NULL) {
       id = atol(row->values[0]);
-      Serial.println(row->values[1]);
+      if (row->values[1] == "saida") {
+        Serial.println(row->values[2]);
+      }
+      else {
+        Serial.println(-1);
+      }
     }
     while (row != NULL) {
       row = cursor->get_next_row();

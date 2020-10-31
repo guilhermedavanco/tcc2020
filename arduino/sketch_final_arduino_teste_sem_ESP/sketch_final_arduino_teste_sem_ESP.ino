@@ -38,8 +38,8 @@ void setup() {
   nfc.SAMConfig();
 
   delay(10000);
-  if (Serial1.available())
-    Serial1.readString();
+  if (Serial.available())
+    Serial.readString();
 }
 
 void loop() {
@@ -50,9 +50,9 @@ void loop() {
   Serial1.println('s');
   Serial.println('s');
   delay(1000);
-  if (Serial1.available()) {
+  if (Serial.available()) {
     do {
-      c = Serial1.read();
+      c = Serial.read();
       dados[x] = c;
       x++;
       delay(1);
