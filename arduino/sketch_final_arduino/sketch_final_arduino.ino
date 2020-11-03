@@ -4,7 +4,7 @@
 #include <PN532.h>
 #include <NfcAdapter.h>
 
-#define REED 21 //input do reed switch
+#define REED 2 //input do reed switch
 #define INTERVALO_MINIMO 250  //intervalo entre dois pulsos para reset
 #define NUM_POS 19  //número de posições do armário
 #define PIN_MOTOR 13  //pino do motor principal
@@ -13,7 +13,8 @@
 PN532_I2C pn532i2c(Wire);
 PN532 nfc(pn532i2c);
 int pos = 0;
-long int intervaloInterrupt = 0;
+int posicaoDesejada;
+long int ultimoInterrupt = 0;
 
 void setup() {
   pinMode(PIN_MOTOR, OUTPUT);
@@ -46,7 +47,6 @@ void loop() {
   char dados[30];
   char c;
   int x = 0;
-  int posicaoDesejada;
   Serial1.println('s');
   Serial.println('s');
   delay(1000);
@@ -71,12 +71,14 @@ void loop() {
 }
 
 void incrementarPosicao() {
-  pos++;
-  intervaloInterrupt = millis() - intervaloInterrupt;
-  if (pos > NUM_POS || intervaloInterrupt < INTERVALO_MINIMO) {
-    pos = 0;
+  if (millis() - ultimoInterrupt  > 50) {
+    if (pos != posicaoDesejada) {
+      pos++;
+      pos = pos % NUM_POS;
+      Serial.println(pos);
+      ultimoInterrupt = millis();
+    }
   }
-  Serial.println(pos);
 }
 
 void moverEstrutura(int posicao) {

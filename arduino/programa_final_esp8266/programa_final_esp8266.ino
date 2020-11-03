@@ -65,7 +65,6 @@ void SQLSelect() {
     if (row != NULL) {
       id = atol(row->values[0]);
       item_id = atol(row->values[3]);
-      Serial.println(item_id);
       Serial.println(row->values[2]);
     }
     while (row != NULL) {
@@ -107,7 +106,6 @@ void SQLUpdateEntrada() {
     delay(1);
   } while (x<30 && Serial.available());
   dados[x] = '\0';
-  Serial.println(dados);
   char posicao[5];
   int i = 0, j = 0,posicao_int;
   while (dados[i] != ' ') {
@@ -128,7 +126,6 @@ void SQLUpdateEntrada() {
   char QUERY3[] = "SELECT id FROM db_tcc.organizador_item WHERE rfid = '%s';";
   char query3[128];
   sprintf(query3, QUERY3, rfid);
-  Serial.println(query3);
   cursor = new MySQL_Cursor(&conn);
   row_values *row = NULL;
   if (conn.connected()) {
@@ -138,17 +135,14 @@ void SQLUpdateEntrada() {
     row = cursor->get_next_row();
     if (row != NULL) {
       item_id = atol(row->values[0]);
-      Serial.println(item_id);
     }
     while (row != NULL) {
       row = cursor->get_next_row();
     }
   }
-  Serial.println(id);
   char QUERY_UPDATE[] = "UPDATE db_tcc.organizador_fluxo SET item_id = %d, realizado = true WHERE id = %d;";
   char query[128];
   sprintf(query, QUERY_UPDATE, item_id, id);
-  Serial.println(query);
   cursor = new MySQL_Cursor(&conn);
   cursor->execute(query);
   delete cursor;
