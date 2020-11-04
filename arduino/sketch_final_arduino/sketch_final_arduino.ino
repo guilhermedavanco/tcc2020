@@ -102,27 +102,28 @@ void receberPeca() {
   boolean success;
   uint8_t uid[] = { 0, 0, 0, 0, 0, 0, 0 };  // Buffer to store the returned UID
   uint8_t uidLength;                        // Length of the UID (4 or 7 bytes depending on ISO14443A card type)
+  do {
+    // Wait for an ISO14443A type cards (Mifare, etc.).  When one is found
+    // 'uid' will be populated with the UID, and uidLength will indicate
+    // if the uid is 4 bytes (Mifare Classic) or 7 bytes (Mifare Ultralight)
+    success = nfc.readPassiveTargetID(PN532_MIFARE_ISO14443A, &uid[0], &uidLength);
 
-  // Wait for an ISO14443A type cards (Mifare, etc.).  When one is found
-  // 'uid' will be populated with the UID, and uidLength will indicate
-  // if the uid is 4 bytes (Mifare Classic) or 7 bytes (Mifare Ultralight)
-  success = nfc.readPassiveTargetID(PN532_MIFARE_ISO14443A, &uid[0], &uidLength);
-
-  if (success) {
-    Serial.println("Found a card!");
-    Serial.print("UID Length: "); Serial.print(uidLength, DEC); Serial.println(" bytes");
-    Serial.print("UID Value: ");
-    sprintf(rfid, "");
-    for (uint8_t i = 0; i < uidLength; i++)
-    {
-      Serial.print(" 0x");
-      sprintf(rfid, "%s %d", rfid, uid[i]);
-      Serial.print(uid[i], HEX);
+    if (success) {
+      Serial.println("Found a card!");
+      Serial.print("UID Length: "); Serial.print(uidLength, DEC); Serial.println(" bytes");
+      Serial.print("UID Value: ");
+      sprintf(rfid, "");
+      for (uint8_t i = 0; i < uidLength; i++)
+      {
+        Serial.print(" 0x");
+        sprintf(rfid, "%s %d", rfid, uid[i]);
+        Serial.print(uid[i], HEX);
+      }
+      Serial.println("");
+      // Wait 1 second before continuing
+      delay(1000);
     }
-    Serial.println("");
-    // Wait 1 second before continuing
-    delay(1000);
-  }
+  } while (!success);
   //Fim da leitura do RFID
 
   char dados[30];
